@@ -46,6 +46,23 @@ namespace Proyecto_Practica_05_.Controllers
                 return StatusCode(500,"Internal Server Error");
             }
         }
+        [HttpGet("/api/[controller]/filters")]
+        public async Task<IActionResult> Get([FromBody] DateTime fecha)
+        {
+            if(fecha < DateTime.MinValue || fecha > DateTime.MaxValue) 
+            { return BadRequest("Ingrese una fecha valida por favor."); }
+            try
+            {
+                var value = app.turnoManager.GetByDate(fecha);
+                if (value == null) { return NotFound("No hay turnos para esa fecha"); }
+                return Ok(value);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500,"Internal Server Error");
+            }
+        }
+
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] TurnoDTO obj)
         {

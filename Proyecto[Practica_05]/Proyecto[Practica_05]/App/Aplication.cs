@@ -7,10 +7,10 @@ namespace Proyecto_Practica_05_.App
     {
         public IManager<ServicioDTO> servicioManager { get; set; }
         public IManager<DetalleDTO> detalleManager { get; set; }
-        public IManager<TurnoDTO> turnoManager { get; set; }
+        public IManagerTurno turnoManager { get; set; }
 
         public Aplication(IManager<ServicioDTO> sManager,
-            IManager<DetalleDTO> dManager, IManager<TurnoDTO> tManager)
+            IManager<DetalleDTO> dManager, IManagerTurno tManager)
         {
             servicioManager = sManager;
             detalleManager = dManager;

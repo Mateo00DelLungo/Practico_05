@@ -6,11 +6,11 @@ using Proyecto_Practica_05_.Models;
 
 namespace Proyecto_Practica_05_.Services
 {
-    public class TurnoManager : IManager<TurnoDTO>
+    public class TurnoManager : IManagerTurno
     {
         private readonly IMapper<TurnoDTO, TTurno> _mapper;
-        private readonly IRepository<TTurno> _repository;
-        public TurnoManager(IMapper<TurnoDTO, TTurno> mapper, IRepository<TTurno> repo)
+        private readonly ITurnoRepository _repository;
+        public TurnoManager(IMapper<TurnoDTO, TTurno> mapper, ITurnoRepository repo)
         {
             _repository = repo;
             _mapper = mapper;
@@ -29,7 +29,10 @@ namespace Proyecto_Practica_05_.Services
         {
             return _mapper.Get( await _repository.GetById(id));
         }
-
+        public async Task<List<TurnoDTO>> GetByDate(DateTime date)
+        {
+            return _mapper.Get(await _repository.GetByDate(date));
+        }
         public async Task<bool> Save(TurnoDTO dto)
         {
             return await _repository.Save(_mapper.Set(dto));

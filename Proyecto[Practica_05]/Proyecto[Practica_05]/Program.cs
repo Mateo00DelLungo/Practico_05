@@ -25,11 +25,11 @@ builder.Services.AddDbContext<TurnoDbContext>(options => options.UseSqlServer(cn
 builder.Services.AddScoped<IApp, Aplication>();
 // inyeccion de repositorios
 builder.Services.AddScoped<IRepository<TServicio>, ServicioRepository>();
-builder.Services.AddScoped<IRepository<TTurno>, TurnoRepository>();
+builder.Services.AddScoped<ITurnoRepository, TurnoRepository>();
 builder.Services.AddScoped<IRepository<TDetalle>, DetalleRepository>();
 //inyeccion de servicios
 builder.Services.AddScoped<IManager<ServicioDTO>, ServicioManager>();
-builder.Services.AddScoped<IManager<TurnoDTO>, TurnoManager>();
+builder.Services.AddScoped<IManagerTurno, TurnoManager>();
 builder.Services.AddScoped<IManager<DetalleDTO>, DetalleManager>();
 //inyeccion de mapeador
 builder.Services.AddScoped<IMapper<ServicioDTO, TServicio>, ServicioMapper>();

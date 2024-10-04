@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Data.Repositories
 {
-    public class TurnoRepository : IRepository<TTurno>
+    public class TurnoRepository : ITurnoRepository
     {
         private readonly TurnoDbContext _context;
         public TurnoRepository(TurnoDbContext context)
@@ -19,7 +19,7 @@ namespace Data.Repositories
         public async Task<bool> Delete(int id)
         {
             var deleted = _context.TTurnos.Find(id);
-            if(deleted == null) { return false; }
+            if (deleted == null) { return false; }
             _context.TTurnos.Remove(deleted);
             return 1 == await _context.SaveChangesAsync();
         }
@@ -33,7 +33,10 @@ namespace Data.Repositories
         {
             return await _context.TTurnos.FindAsync(id);
         }
-
+        public async Task<List<TTurno>> GetByDate(DateTime date)
+        {
+            return await _context.TTurnos.Where(p => p.Fecha == date).ToListAsync();
+        }
         public async Task<bool> Save(TTurno entity)
         {
             var exists = _context.TTurnos.FirstOrDefault(p=> p.Fecha == entity.Fecha && p.Hora == entity.Hora);
